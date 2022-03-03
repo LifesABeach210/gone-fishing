@@ -84,6 +84,76 @@ function start() {
             return;
         }
 
+        createFish();// create fish function 
+        clock += tick;// runs the game clock
+        console.log("Total Weight: ", totalPounds.toFixed(2), "Sum Value: ", sumValue.toFixed(2));//displays fish caught 
+        more = prompt("Would you like to keep fishing ? Y or N press R to release fish");//prompts user to continue fishing Y or N or release fish
+        if (more == 'R') {//is the action taken if release fish is selected
+            
+            releaseFish();// function that release fish 
+            more = prompt("Would you like to keep fishing ? Y or N");
+        }
+    } while (more == 'Y');
+    displaySum();
+}
+
+function createFish() {
+
+    let weight = Math.random() * 4;
+    if (totalPounds + weight > 10) {
+        console.log("You have reached your daily limit");
+        return;
+    }
+    let idx = parseInt(Math.random() * len);
+    if (idx == 2) // golden doubloon
+    {
+        console.log("golden doubloon");
+    }
+    let value = Math.random() * 30;
+    sumValue += value;
+    totalPounds += weight;
+    const fish = { name: fishNames[idx], weight: weight, value: value };
+    //  console.log(fish);
+    fishList.push(fish);
+    return fish;
+}
+
+function displaySum() {
+
+    console.log("Total Weight: of fish ", 'LB'+totalPounds.toFixed(2), "Sum Value: of fish ", '$'+sumValue.toFixed(2));
+
+    fishList.forEach((fish, idx) => {
+        console.log(idx + 1, fish.name+"Fish", fish.weight.toFixed(2), "$"+fish.value.toFixed(2));
+    });
+    for (let i = 0; i < fishList.length; i++) {
+        const NumLine = i +1;
+        let fish = fishList[i];
+        console.log(NumLine,fish.name,fish.value.toFixed(2),fish.weight.toFixed(2));
+      
+        
+      
+      
+      }
+        
+          
+          
+          }    
+      
+      
+      
+      
+      function releaseFish() {
+          displaySum();
+      
+          let idx = parseInt(prompt("Enter number to remove:"));
+          --idx;
+          const fish = fishList[idx];
+          fishList.splice(idx, 1);
+          totalPounds -= fish.weight;
+          sumValue -= fish.value;
+          displaySum();
+      }
+
 
 
 

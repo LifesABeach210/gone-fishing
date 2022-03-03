@@ -57,21 +57,20 @@ console.log("Press [4] if you want to end your trip early");
 console.log("***************PRESS ENTER & FISH*****************************");
 
 let clock = 0;
-//Math.ceil(Math.random()) * 6;
+
 console.log(clock);
 
-let probFish = Math.random() * Math.random() * 3;
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-let blueFinTuna = "BlueFinTuna";
 var totalPounds = 0;
 var sumValue = 0;
 let fishList = [];
-const fishNames = ['Blue Fin', 'Red Fin', 'Golden Doubloon', 'SailFin', 'BigMouth', 'Shark', 'Bluegilled', 'RedBass', 'Ugly', 'Ten'];
+const fishNames = ['Blue Fin', 'Red Fin', 'Golden Doubloon', 'SailFin', 'BigMouth', 'Shark', 'Bluegilled', 'RedBass', 'Ugly-Sail', 'Green-Sail'];
 const len = fishNames.length;
 start();
 
 function start() {
-    const tick = parseInt(15 + Math.random() * 75);
+    const tick = parseInt(15 + Math.random() * 75); // number of random minutes between 15 and 90 to add to clock.
     console.log("tick: ", tick);
     let more = 'Y';
     do {
@@ -85,22 +84,23 @@ function start() {
             return;
         }
 
-        createFish();
+        const fish = catchFish();
         clock += tick;
-        console.log("Total Weight: ", totalPounds.toFixed(2), "Sum Value: ", sumValue.toFixed(2));
-        more = prompt("More Fish ? Y or N");
-        if (more == 'T') {
+        console.log("Fish name:", fish.name, ", Total Weight: ", totalPounds.toFixed(2), "Sum Value: ", sumValue.toFixed(2));
+        more = prompt("Would you like to keep fishing ? Y or N press R to release fish");
+        if (more == 'R') {
+            
             releaseFish();
-            more = prompt("More Fish ? Y or N");
+            more = prompt("Would you like to keep fishing ? Y or N");
         }
     } while (more == 'Y');
     displaySum();
 }
 
-function createFish() {
+function catchFish() {
 
-    let weight = Math.random() * 18;
-    if (totalPounds + weight > 50) {
+    let weight = Math.random() * 4;
+    if (totalPounds + weight > 10) {
         console.log("You have reached your daily limit");
         return;
     }
@@ -112,20 +112,36 @@ function createFish() {
     let value = Math.random() * 30;
     sumValue += value;
     totalPounds += weight;
-    const fish = { name: fishNames[idx], weight: weight, value: value };
+    const fish = { name: fishNames[idx], weight: weight, value: value };// this one 
+
     //  console.log(fish);
     fishList.push(fish);
     return fish;
 }
 
-function displaySum() {
+function displaySum() {// convert to for loop //totalPunds and sumValue
 
-    console.log("Total Weight: ", totalPounds.toFixed(2), "Sum Value: ", sumValue.toFixed(2));
 
-    fishList.forEach((fish, idx) => {
-        console.log(idx + 1, fish.name, fish.weight.toFixed(2), fish.value.toFixed(2));
-    });
+    //fishList.forEach((fish, idx) => {
+      //  console.log(fish,idx)((idx + 1)+ " " + fish.name+"Fish"+ " " + fish.weight.toFixed(2)+" " + "$"+fish.value.toFixed(2));
+       // console.log("Total Weight: of fish ", 'LB'+totalPounds.toFixed(2), "Sum Value: of fish ", '$'+sumValue.toFixed(2));
+
+  for (let i = 0; i < fishList.length; i++) {
+  const NumLine = i +1;
+  let fish = fishList[i];
+  console.log(NumLine,fish.name,fish.value.toFixed(2),fish.weight.toFixed(2));
+
+  
+
+
 }
+  
+    
+    
+    }    
+
+
+
 
 function releaseFish() {
     displaySum();
